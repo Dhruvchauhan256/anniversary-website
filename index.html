@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy 1st Anniversary ❤</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#e8c27a;--rose:#ff5d8f;--bg:#0b0710;--text:#f6eef2}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Poppins',system-ui,sans-serif;overflow-x:hidden}
+  body.locked{overflow:hidden;height:100vh}
+  h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,serif}
+  section{min-height:100svh;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 22px;overflow:hidden}
+  .bg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0;animation:kb 18s ease-in-out infinite alternate}
+  .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(11,7,16,.95),rgba(11,7,16,.35) 60%,rgba(11,7,16,.7))}
+  @keyframes kb{from{transform:scale(1)}to{transform:scale(1.12)}}
+  .content{position:relative;z-index:1;max-width:560px;width:100%}
+  .reveal{opacity:0;transform:translateY(30px);transition:all 1s ease}
+  .reveal.show{opacity:1;transform:none}
+  .tag{letter-spacing:4px;font-size:12px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  h2{font-size:clamp(28px,7vw,44px);margin-bottom:18px;line-height:1.2}
+  p{line-height:1.7;font-weight:300}
+  .btn{background:linear-gradient(135deg,var(--rose),#ff8e6e);color:#fff;border:0;border-radius:40px;padding:14px 34px;font-size:16px;font-family:inherit;cursor:pointer;box-shadow:0 8px 30px rgba(255,93,143,.4)}
+  .btn:active{transform:scale(.96)}
+  .pulse{animation:pulse 1.8s infinite}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+
+  /* password lock */
+  #lock{position:fixed;inset:0;z-index:200;background:radial-gradient(circle at 50% 35%,#2a0f24,#07040b 75%);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;transition:opacity .9s}
+  #lock h1{font-size:clamp(26px,7vw,42px);margin:10px 0 8px}
+  #lock .hint{opacity:.7;font-size:14px}
+  #pw{margin:22px 0 16px;width:210px;text-align:center;font-size:26px;letter-spacing:10px;padding:12px;border-radius:14px;border:1px solid var(--gold);background:rgba(255,255,255,.06);color:var(--text);outline:none;font-family:inherit}
+  #lockErr{color:var(--rose);font-size:14px;margin-top:14px;min-height:22px}
+  .shake{animation:shake .45s}
+  @keyframes shake{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+
+  /* intro */
+  #intro{position:fixed;inset:0;z-index:100;background:radial-gradient(circle at 50% 40%,#2a0f24,#0b0710 70%);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;transition:opacity 1.2s}
+  #intro h1{font-size:clamp(30px,8vw,52px);margin:10px 0 28px}
+
+  /* hero */
+  #hero h1{font-size:clamp(40px,11vw,76px);line-height:1.1;margin:8px 0}
+  #hero .date{color:var(--gold);letter-spacing:3px;margin-top:14px}
+  .scroll{position:absolute;bottom:22px;z-index:1;font-size:12px;letter-spacing:3px;opacity:.7;animation:bob 2s infinite}
+  @keyframes bob{50%{transform:translateY(8px)}}
+  .heart{position:fixed;bottom:-30px;z-index:5;pointer-events:none;animation:floatUp linear forwards}
+  @keyframes floatUp{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+
+  /* counter */
+  .counter{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+  .counter div{background:rgba(255,255,255,.07);border:1px solid rgba(232,194,122,.3);border-radius:16px;padding:16px 4px;backdrop-filter:blur(6px)}
+  .counter b{display:block;font-size:clamp(24px,7vw,38px);font-family:'Playfair Display',serif;color:var(--gold)}
+  .counter span{font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.7}
+
+  /* timeline */
+  .tl-date{color:var(--gold);letter-spacing:3px;font-size:13px;margin-bottom:10px}
+  .tl-card{background:rgba(0,0,0,.35);backdrop-filter:blur(4px);padding:22px;border-radius:18px}
+
+  /* polaroid scrapbook */
+  .polas{display:flex;flex-wrap:wrap;justify-content:center;gap:22px 12px;width:100%;max-width:720px;margin-top:10px}
+  .pola{width:44%;max-width:210px;background:#fdf8f2;padding:8px 8px 34px;border-radius:3px;box-shadow:0 10px 25px rgba(0,0,0,.55);transform:rotate(var(--r));transition:transform .3s;position:relative;cursor:pointer}
+  .pola::before{content:"";position:absolute;top:-10px;left:50%;width:56px;height:18px;transform:translateX(-50%) rotate(-3deg);background:rgba(232,194,122,.55)}
+  .pola img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#ddd}
+  .pola span{position:absolute;bottom:7px;left:0;right:0;text-align:center;font-family:'Caveat',cursive;color:#3a2a2a;font-size:19px}
+  .pola:active{transform:rotate(0) scale(1.05)}
+  #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:90;display:none;flex-direction:column;justify-content:center;align-items:center;padding:16px}
+  #lightbox img{max-width:100%;max-height:78vh;border-radius:10px}
+  #lightbox p{margin-top:14px;color:var(--gold);font-family:'Caveat',cursive;font-size:24px}
+
+  /* voice / video message */
+  .vid{width:100%;max-width:420px;border-radius:18px;overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.6);border:1px solid rgba(232,194,122,.3)}
+  .vid video{width:100%;display:block;background:#000}
+  .vid.voice{padding:28px 18px;background:rgba(255,255,255,.06)}
+  .vid.voice .big{font-size:60px;animation:pulse 1.8s infinite}
+  .vid audio{width:100%;margin-top:6px}
+
+  /* our song */
+  .song-section{background:radial-gradient(circle at 50% 30%,#2a0f24,#0b0710 70%)}
+  .song-heart{font-size:48px;color:var(--rose);margin-bottom:8px;animation:heartbeat 1.8s infinite}
+  @keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+  .song-subtitle{opacity:.75;margin-bottom:25px}
+  .song-card{display:flex;align-items:center;gap:14px;width:100%;max-width:520px;padding:16px 18px;border-radius:18px;background:linear-gradient(135deg,#3a1030,#1c0a22);border:1px solid rgba(232,194,122,.3);box-shadow:0 14px 40px rgba(0,0,0,.55);text-align:left;margin:0 auto}
+  .song-card .play{flex:none;width:56px;height:56px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--rose),#ff8e6e);color:#fff;font-size:20px;cursor:pointer}
+  .song-card .meta{flex:1;min-width:0}
+  .song-card .meta b{display:block;font-family:'Playfair Display',serif;font-size:18px}
+  .song-card .meta small{opacity:.65;font-size:12px}
+  .song-card .bar{height:4px;border-radius:4px;background:rgba(255,255,255,.15);margin-top:10px;overflow:hidden}
+  .song-card .bar i{display:block;height:100%;width:0;background:var(--gold)}
+  .song-card .restart{flex:none;width:38px;height:38px;border-radius:50%;background:none;border:1px solid rgba(232,194,122,.4);color:var(--gold);font-size:18px;cursor:pointer}
+  .spotify-wrapper{display:none;width:100%;max-width:520px;margin:0 auto;border-radius:18px;overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.55);border:1px solid rgba(232,194,122,.25)}
+  .spotify-wrapper iframe{display:block;width:100%;border:0}
+
+  /* reasons */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:560px}
+  .card{perspective:600px;height:96px;cursor:pointer}
+  .card .in{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+  .card.flip .in{transform:rotateY(180deg)}
+  .card .f,.card .b{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;display:flex;align-items:center;justify-content:center;padding:8px;font-size:12px;line-height:1.35}
+  .card .f{background:linear-gradient(135deg,#3a1030,#1c0a22);border:1px solid rgba(232,194,122,.4);font-size:24px;color:var(--gold)}
+  .card .b{background:linear-gradient(135deg,var(--rose),#ff8e6e);transform:rotateY(180deg);font-weight:500}
+
+  /* starry sky */
+  #skySec{background:radial-gradient(ellipse at 50% 100%,#1b1038,#05030a 75%)}
+  #skyCanvas{position:absolute;inset:0;width:100%;height:100%}
+  .sky-top{position:absolute;top:9%;left:0;right:0;z-index:1;padding:0 20px}
+  .sky-bottom{position:absolute;bottom:10%;left:0;right:0;z-index:1;padding:0 24px;font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(16px,4.4vw,20px);line-height:1.7}
+
+  /* open when letters */
+  .env-list{display:grid;gap:12px;width:100%;max-width:480px}
+  .env{display:flex;align-items:center;gap:14px;text-align:left;padding:16px 18px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(232,194,122,.3);color:var(--text);font-family:inherit;font-size:15px;width:100%;cursor:pointer}
+  .env i{font-style:normal;font-size:26px}
+  .env:active{transform:scale(.98)}
+  #modal{position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.85);display:none;justify-content:center;align-items:center;padding:20px}
+  .mbox{position:relative;background:linear-gradient(160deg,#2a0f24,#14081b);border:1px solid rgba(232,194,122,.4);border-radius:20px;padding:30px 24px;max-width:460px;width:100%;max-height:85vh;overflow:auto;text-align:left}
+  .mbox h3{font-size:24px;margin-bottom:14px}
+  .mbox p{white-space:pre-wrap;font-family:'Playfair Display',serif;font-style:italic;line-height:1.9;font-size:17px}
+  #mClose{position:absolute;top:10px;right:14px;background:none;border:0;color:var(--text);font-size:22px;cursor:pointer}
+
+  /* coupons */
+  .coupons{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:100%;max-width:520px}
+  .coupon{position:relative;padding:18px 12px;border-radius:14px;background:linear-gradient(135deg,#3a1030,#1c0a22);border:1px dashed var(--gold);cursor:pointer;transition:.3s}
+  .coupon i{font-style:normal;font-size:30px;display:block;margin-bottom:6px}
+  .coupon b{display:block;font-size:14px;font-weight:500}
+  .coupon small{opacity:.6;font-size:11px}
+  .coupon.used{opacity:.55;filter:grayscale(.6)}
+  .coupon.used::after{content:"REDEEMED";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-14deg);border:2px solid var(--rose);color:var(--rose);padding:2px 8px;border-radius:6px;font-weight:600;letter-spacing:2px;font-size:13px;background:rgba(0,0,0,.4)}
+
+  /* year 2 */
+  .list{width:100%;max-width:480px;text-align:left}
+  .list h3{font-size:22px;margin:18px 0 10px;color:var(--gold)}
+  .li{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;margin:8px 0;border-radius:12px;background:rgba(255,255,255,.06);font-size:15px;line-height:1.5}
+  .bk{cursor:pointer}
+  .bk .box{flex:none;width:22px;height:22px;border:2px solid var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;margin-top:1px}
+  .bk.done .box{background:var(--gold);color:#222}
+  .bk.done span{text-decoration:line-through;opacity:.6}
+
+  /* quiz */
+  .quiz{background:rgba(255,255,255,.06);border-radius:20px;padding:22px;width:100%;max-width:520px}
+  .opt{display:block;width:100%;margin:10px 0;padding:13px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:transparent;color:var(--text);font-family:inherit;font-size:15px}
+  .opt.ok{background:#1f8f55;border-color:#1f8f55}
+  .opt.no{background:#b3314f;border-color:#b3314f}
+
+  /* scratch card */
+  .scratch-wrap{position:relative;width:100%;max-width:340px;height:190px;margin:10px auto;border-radius:18px;overflow:hidden;border:1px solid var(--gold)}
+  .scratch-under{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;background:linear-gradient(135deg,#ff5d8f,#ff8e6e);font-size:19px;font-family:'Playfair Display',serif;font-weight:700;line-height:1.4}
+  #scratchCv{position:absolute;inset:0;width:100%;height:100%;touch-action:none;transition:opacity .8s}
+
+  /* letter */
+  #letterText{white-space:pre-wrap;text-align:left;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(16px,4.4vw,20px);line-height:1.9;min-height:260px}
+
+  /* final + gift */
+  .btns{display:flex;gap:16px;justify-content:center;align-items:center;margin-top:26px;min-height:80px}
+  #noBtn{background:#333;box-shadow:none}
+  #gift{display:none;margin-top:10px}
+  .giftbox{font-size:96px;cursor:pointer;animation:wobble 1.4s infinite;display:inline-block}
+  @keyframes wobble{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-5deg)}80%{transform:rotate(5deg)}}
+  .giftbox.open{animation:pop .7s forwards}
+  @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.6) rotate(10deg)}100%{transform:scale(1)}}
+  .giftcard{max-height:0;opacity:0;overflow:hidden;transition:all 1s;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);border:1px solid var(--gold);border-radius:20px;margin-top:16px}
+  .giftcard.show{max-height:700px;opacity:1;padding:22px}
+  .giftcard h3{font-size:26px;color:var(--gold);margin-bottom:10px}
+  .giftcard p{white-space:pre-wrap}
+
+  #toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(30px);background:var(--rose);color:#fff;padding:11px 20px;border-radius:30px;font-size:14px;opacity:0;transition:.4s;z-index:120;pointer-events:none;max-width:90%;text-align:center}
+  #toast.show{opacity:1;transform:translateX(-50%)}
+
+  @media(max-width:600px){
+    .counter{gap:6px}
+    .counter div{padding:12px 2px}
+    .counter span{font-size:9px;letter-spacing:1px}
+    .cards{gap:7px}
+    .card{height:90px}
+  }
+</style>
+</head>
+<body class="locked">
+
+<audio id="audio" preload="auto" loop></audio>
+<div id="toast"></div>
+
+<!-- PASSWORD LOCK -->
+<div id="lock">
+  <div class="tag">Just for you</div>
+  <h1>Enter our special date</h1>
+  <p class="hint" id="lockHint"></p>
+  <input id="pw" type="tel" inputmode="numeric" maxlength="10" placeholder="••••" autocomplete="off">
+  <button class="btn" id="unlockBtn">Unlock ❤</button>
+  <p id="lockErr"></p>
+</div>
+
+<!-- INTRO -->
+<div id="intro">
+  <div class="tag">For someone special</div>
+  <h1 id="introName"></h1>
+  <button class="btn pulse" id="openBtn">Tap to open ❤</button>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="bg" id="heroBg"></div>
+  <div class="content">
+    <div class="tag reveal">Our first anniversary</div>
+    <h1 class="reveal" id="heroTitle"></h1>
+    <p class="date reveal" id="heroDate"></p>
+  </div>
+  <div class="scroll">SCROLL ↓</div>
+</section>
+
+<!-- COUNTER -->
+<section style="background:radial-gradient(circle at 50% 30%,#2a0f24,#0b0710 70%)">
+  <div class="content">
+    <div class="tag reveal">Together for</div>
+    <h2 class="reveal">Every second with you counts</h2>
+    <div class="counter reveal">
+      <div><b id="cD">0</b><span>Days</span></div>
+      <div><b id="cH">0</b><span>Hours</span></div>
+      <div><b id="cM">0</b><span>Mins</span></div>
+      <div><b id="cS">0</b><span>Secs</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<div id="timeline"></div>
+
+<!-- POLAROID SCRAPBOOK -->
+<section style="background:#0f0816">
+  <div class="tag reveal">Our scrapbook</div>
+  <h2 class="reveal">A year in pictures</h2>
+  <div class="polas reveal" id="polas"></div>
+</section>
+<div id="lightbox"><img id="lbImg" alt=""><p id="lbCap"></p></div>
+
+<!-- VOICE / VIDEO MESSAGE -->
+<section id="msgSec" style="background:radial-gradient(circle at 50% 30%,#2a0f24,#0b0710 70%)">
+  <div class="tag reveal">Press play</div>
+  <h2 class="reveal" id="msgTitle"></h2>
+  <div id="msgHolder" class="reveal"></div>
+  <p class="reveal" id="msgCap" style="margin-top:16px;opacity:.8"></p>
+</section>
+
+<!-- OUR SONG -->
+<section class="song-section" id="songSec">
+  <div class="content">
+    <div class="song-heart reveal">♡</div>
+    <div class="tag reveal">Our song</div>
+    <h2 class="reveal" id="songTitle"></h2>
+    <p class="song-subtitle reveal" id="songSub"></p>
+
+    <div class="reveal">
+      <!-- main player: plays your local mp3 from the start -->
+      <div class="song-card" id="songCard">
+        <button class="play" id="songPlay">▶</button>
+        <div class="meta">
+          <b id="songName"></b>
+          <small>Plays from the very beginning ❤</small>
+          <div class="bar"><i id="songBar"></i></div>
+        </div>
+        <button class="restart" id="songRestart" title="Play from start">↺</button>
+      </div>
+
+      <!-- fallback player: only shown if the mp3 is missing -->
+      <div class="spotify-wrapper" id="spotifyWrap">
+        <div id="spotify-player"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REASONS -->
+<section style="background:radial-gradient(circle at 50% 70%,#2a0f24,#0b0710 70%)">
+  <div class="tag reveal">Tap the hearts</div>
+  <h2 class="reveal">Reasons I love you</h2>
+  <div class="cards reveal" id="cards"></div>
+</section>
+
+<!-- STARRY SKY -->
+<section id="skySec">
+  <canvas id="skyCanvas"></canvas>
+  <div class="sky-top">
+    <div class="tag reveal">Written in the stars</div>
+    <h2 class="reveal">Out of all the stars...</h2>
+  </div>
+  <div class="sky-bottom reveal" id="skyCaption"></div>
+</section>
+
+<!-- OPEN WHEN LETTERS -->
+<section style="background:#0f0816">
+  <div class="tag reveal">Little letters</div>
+  <h2 class="reveal">Open when...</h2>
+  <div class="env-list reveal" id="envList"></div>
+</section>
+
+<!-- COUPONS -->
+<section style="background:radial-gradient(circle at 50% 30%,#2a0f24,#0b0710 70%)">
+  <div class="tag reveal">Tap to redeem</div>
+  <h2 class="reveal">Love coupons</h2>
+  <div class="coupons reveal" id="coupons"></div>
+</section>
+
+<!-- YEAR 2 -->
+<section style="background:#0f0816">
+  <div class="tag reveal">Looking ahead</div>
+  <h2 class="reveal">Our year two</h2>
+  <div class="list reveal">
+    <h3>My promises to you</h3>
+    <div id="promises"></div>
+    <h3>Our bucket list (tap to tick)</h3>
+    <div id="bucket"></div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section style="background:radial-gradient(circle at 50% 70%,#2a0f24,#0b0710 70%)">
+  <div class="tag reveal">Let's see how well you know us</div>
+  <h2 class="reveal">Our little quiz</h2>
+  <div class="quiz reveal" id="quiz"></div>
+</section>
+
+<!-- SCRATCH CARD -->
+<section style="background:#0f0816">
+  <div class="tag reveal">A tiny surprise</div>
+  <h2 class="reveal">Scratch to reveal</h2>
+  <div class="scratch-wrap reveal">
+    <div class="scratch-under" id="scratchMsg"></div>
+    <canvas id="scratchCv"></canvas>
+  </div>
+</section>
+
+<!-- LETTER -->
+<section id="letterSec" style="background:radial-gradient(circle at 50% 30%,#2a0f24,#0b0710 75%)">
+  <div class="content">
+    <div class="tag reveal">A letter for you</div>
+    <div id="letterText"></div>
+  </div>
+</section>
+
+<!-- FINAL + GIFT -->
+<section id="finalSec">
+  <div class="bg" id="finalBg"></div>
+  <div class="content">
+    <div class="tag reveal">One last thing...</div>
+    <h2 class="reveal" id="finalQ"></h2>
+    <div class="btns reveal" id="btns">
+      <button class="btn" id="yesBtn">Yes ❤</button>
+      <button class="btn" id="noBtn">No</button>
+    </div>
+    <p id="finalMsg" style="margin-top:20px;font-size:18px"></p>
+    <div id="gift">
+      <div class="giftbox" id="giftBox">🎁</div>
+      <p id="giftHint" style="opacity:.8">I have one more thing for you... tap the gift</p>
+      <div class="giftcard" id="giftCard">
+        <h3 id="giftTitle"></h3>
+        <p id="giftText"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div id="modal">
+  <div class="mbox">
+    <button id="mClose">✕</button>
+    <div class="tag" id="mTag"></div>
+    <h3 id="mTitle"></h3>
+    <p id="mBody"></p>
+  </div>
+</div>
+
+<script>
+/* ================= EDIT ONLY THIS PART ================= */
+const CONFIG = {
+  herName: "Anushka",
+  herNick: "Annu",
+  yourName: "Dhruv",
+  anniversary: "7 October 2026",
+  startDate: "2025-10-07T00:00:00",
+  password: "0710",
+  passwordHint: "Hint: the date we became us (DDMM)",
+
+  heroImg: "photos/our_at_best.jpeg",
+  finalImg: "photos/Together_always.jpeg",
+
+  /* OUR SONG */
+  song: {
+    title: "Vhalam Aavo Ne",
+    subtitle: "A little song for our little story ❤️",
+    file: "music/vhalam-aavo-ne.mp3",      // your own copy of the song, starts at 0:00
+    startAt: 0,                             // seconds. 0 = very beginning. e.g. 12 = start at 0:12
+    spotifyId: "4XIFEqjCE5TVRgZ0ZzKopj"     // fallback only. Check this is the right track ID
+  },
+
+  timeline: [
+    {date:"The Beginning", title:"The day we met", text:"Write what you remember about the first time we met.", img:"photos/my_favorite.jpeg"},
+    {date:"First Date", title:"Our first date", text:"Where we went and what I felt that day.", img:"photos/our_at_best.jpeg"},
+    {date:"A Special Day", title:"The day we got together", text:"The moment everything changed for me.", img:"photos/our_silly_side.jpeg"},
+    {date:"Our Trip", title:"Our first trip", text:"That funny and beautiful memory we made together.", img:"photos/Together_always.jpeg"},
+    {date:"Today", title:"One year of us", text:"365 days, and I would choose you every single one.", img:"photos/Pure_happiness.jpeg"}
+  ],
+
+  polaroids: [
+    {src:"photos/your_smile.jpeg", cap:"your smile"},
+    {src:"photos/our_at_best.jpeg", cap:"us at our best"},
+    {src:"photos/my_favorite.jpeg", cap:"my favourite of you"},
+    {src:"photos/our_silly_side.jpeg", cap:"our silly side"},
+    {src:"photos/Together_always.jpeg", cap:"together always"},
+    {src:"photos/Pure_happiness.jpeg", cap:"pure happiness"}
+  ],
+
+  message: {
+    type: "video",
+    src: "media/message.mp4",
+    poster: "photos/your_smile.jpeg",
+    title: "A message from my heart",
+    caption: "Press play, this one is just for you"
+  },
+
+  reasons: [
+    "Your smile makes my day","You understand me without words","You make ordinary days special",
+    "Your laugh is my favourite sound","You support my dreams","You are my best friend",
+    "You are so caring","You make me a better person","Home feels like you"
+  ],
+
+  skyCaption: "Out of all the stars in the sky,<br>I'm so lucky I found you.",
+
+  openWhen: [
+    {icon:"💌", label:"Open when you miss me",
+     text:"My love {nick},\n\nIf you are reading this, I am probably missing you too.\nClose your eyes and remember my hug.\nI am always just one call away.\n\nYours,\n{you}"},
+    {icon:"🌧️", label:"Open when you're sad",
+     text:"Hey {nick},\n\nThis feeling will pass, and I am right here with you.\nYou are stronger than you think, and so loved.\n\nYours,\n{you}"},
+    {icon:"🌙", label:"Open when you can't sleep",
+     text:"Dear {nick},\n\nThink of our happiest memory and let it carry you to sleep.\nGood night, my love.\n\n{you}"},
+    {icon:"😊", label:"Open when you need a smile",
+     text:"Write something funny here, like an inside joke only you two understand 😄"},
+    {icon:"💞", label:"Open when you doubt my love",
+     text:"{nick}, never doubt this: I choose you, today and every day.\nWrite your own honest words here.\n\n{you}"}
+  ],
+
+  coupons: [
+    {icon:"🤗", title:"One long hug", note:"No expiry"},
+    {icon:"🍫", title:"Chocolate treat", note:"Any flavour you like"},
+    {icon:"🎬", title:"Movie night, your pick", note:"I won't complain"},
+    {icon:"🍽️", title:"A dinner date", note:"My treat"},
+    {icon:"💆", title:"Relaxing head massage", note:"Valid anytime"},
+    {icon:"🚗", title:"Surprise long drive", note:"With your playlist"}
+  ],
+
+  promises: [
+    "I will always listen to you, even when I'm tired.",
+    "I will make you laugh every single week.",
+    "I will support your dreams like they are mine.",
+    "I will choose us, again and again."
+  ],
+
+  bucket: [
+    "Take our first big trip together",
+    "Watch a sunrise together",
+    "Cook a full dinner together",
+    "Take photos in a photo booth",
+    "Learn something new together",
+    "Write one new dream for us every month"
+  ],
+
+  quiz: [
+    {q:"Where did we first meet?", o:["Option A","Option B","Option C"], a:0},
+    {q:"What was the first movie we watched together?", o:["Option A","Option B","Option C"], a:1},
+    {q:"What is my favourite thing about you?", o:["Your smile","Your heart","Everything"], a:2},
+    {q:"Which date is our anniversary?", o:["5 October","7 October","10 October"], a:1}
+  ],
+
+  scratchText: "I have a surprise<br>planned for you ❤",
+
+  letter: `My dearest {nick},
+
+One year ago, my life changed in the best way possible.
+Write your real feelings here, in your own words.
+Tell her what she means to you, what you are grateful for,
+and what you promise for the years ahead.
+
+Happy Anniversary, my love.
+
+Forever yours,
+{you}`,
+
+  finalQuestion: "Will you stay with me for another year... and forever?",
+  yesMessage: "I knew it! 🥰 I love you, forever and always. ❤",
+
+  gift: {
+    title: "Your surprise 🎁",
+    text: "Write the real surprise here.\nFor example: Dinner tonight at 8 PM at your favourite place.\nGet ready, {nick}! ❤"
+  }
+};
+/* ======================================================= */
+
+const $ = id => document.getElementById(id);
+const fill = s => s.replace(/\{her\}/g, CONFIG.herName).replace(/\{nick\}/g, CONFIG.herNick).replace(/\{you\}/g, CONFIG.yourName);
+const bgImg = (el, src) => el.style.backgroundImage = `url('${src}'), linear-gradient(135deg,#3a1030,#0b0710)`;
+const store = {
+  get(k, d){ try{ const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2600);
+}
+function heart(){
+  const h = document.createElement("div");
+  h.className = "heart"; h.textContent = ["❤","💖","💕","✨"][Math.floor(Math.random()*4)];
+  h.style.left = Math.random()*100 + "vw";
+  h.style.fontSize = 14 + Math.random()*22 + "px";
+  h.style.animationDuration = 5 + Math.random()*5 + "s";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 10500);
+}
+function burst(n){ for(let i = 0; i < n; i++) setTimeout(heart, i * 70); }
+
+/* ---------- OUR SONG (local mp3 first, Spotify as fallback) ---------- */
+const audio = $("audio");
+let spotifyCtl = null, spotifyMode = false, storyOpened = false, songWasPlaying = false;
+
+$("songTitle").textContent = CONFIG.song.title;
+$("songSub").textContent = CONFIG.song.subtitle;
+$("songName").textContent = CONFIG.song.title;
+
+function songStart(){ return CONFIG.song.startAt || 0; }
+
+// Spotify fallback (only used when the mp3 cannot be played)
+window.onSpotifyIframeApiReady = IFrameAPI => {
+  IFrameAPI.createController(
+    $("spotify-player"),
+    { uri: "spotify:track:" + CONFIG.song.spotifyId, width: "100%", height: 152 },
+    ctl => {
+      spotifyCtl = ctl;
+      ctl.addListener("ready", () => {
+        if(storyOpened){
+          try{ ctl.restart(); ctl.play(); if(songStart()) ctl.seek(songStart()); }catch(e){}
+        }
+      });
+    }
+  );
+};
+function useSpotify(){
+  if(spotifyMode) return;
+  spotifyMode = true;
+  $("songCard").style.display = "none";
+  $("spotifyWrap").style.display = "block";
+  const s = document.createElement("script");
+  s.src = "https://open.spotify.com/embed/iframe-api/v1";
+  s.async = true;
+  document.body.appendChild(s);
+}
+
+// Local player UI
+audio.addEventListener("error", useSpotify);
+audio.src = CONFIG.song.file;
+audio.addEventListener("play",  () => $("songPlay").textContent = "❚❚");
+audio.addEventListener("pause", () => $("songPlay").textContent = "▶");
+audio.addEventListener("timeupdate", () => {
+  const d = audio.duration || 0;
+  $("songBar").style.width = (d ? audio.currentTime / d * 100 : 0) + "%";
+});
+$("songPlay").onclick = () => audio.paused ? audio.play().catch(() => {}) : audio.pause();
+$("songRestart").onclick = () => { audio.currentTime = songStart(); audio.play().catch(() => {}); };
+
+function startSong(){
+  storyOpened = true;
+  audio.currentTime = songStart();
+  const p = audio.play();
+  if(p && p.catch) p.catch(err => { if(!err || err.name !== "NotAllowedError") useSpotify(); });
+  if(spotifyCtl){ try{ spotifyCtl.restart(); spotifyCtl.play(); if(songStart()) spotifyCtl.seek(songStart()); }catch(e){} }
+}
+
+/* ---------- Password lock ---------- */
+$("lockHint").textContent = CONFIG.passwordHint;
+function tryUnlock(){
+  const v = $("pw").value.trim().toLowerCase();
+  if(v === CONFIG.password.toLowerCase()){
+    startSong();   // song starts from the beginning the moment she unlocks
+    $("lock").style.opacity = 0;
+    setTimeout(() => $("lock").style.display = "none", 900);
+  } else {
+    $("lockErr").textContent = "Hmm, that's not it. Think about our special day 🙈";
+    const p = $("pw"); p.classList.remove("shake"); void p.offsetWidth; p.classList.add("shake");
+  }
+}
+$("unlockBtn").onclick = tryUnlock;
+$("pw").addEventListener("keydown", e => { if(e.key === "Enter") tryUnlock(); });
+
+/* ---------- Basic text + images ---------- */
+$("introName").textContent = `Happy Anniversary, ${CONFIG.herNick}`;
+$("heroTitle").innerHTML = `${CONFIG.herName}<br>& ${CONFIG.yourName}`;
+$("heroDate").textContent = CONFIG.anniversary;
+$("finalQ").textContent = CONFIG.finalQuestion;
+$("skyCaption").innerHTML = CONFIG.skyCaption;
+$("scratchMsg").innerHTML = CONFIG.scratchText;
+$("giftTitle").textContent = CONFIG.gift.title;
+$("giftText").textContent = fill(CONFIG.gift.text);
+bgImg($("heroBg"), CONFIG.heroImg);
+bgImg($("finalBg"), CONFIG.finalImg);
+
+/* ---------- Timeline ---------- */
+CONFIG.timeline.forEach(t => {
+  const s = document.createElement("section");
+  s.innerHTML = `<div class="bg"></div>
+    <div class="content"><div class="tl-card reveal">
+      <div class="tl-date">${t.date}</div><h2>${t.title}</h2><p>${t.text}</p></div></div>`;
+  bgImg(s.querySelector(".bg"), t.img);
+  $("timeline").appendChild(s);
+});
+
+/* ---------- Polaroids + lightbox ---------- */
+CONFIG.polaroids.forEach((g, i) => {
+  const d = document.createElement("div");
+  d.className = "pola";
+  d.style.setProperty("--r", ((i % 2 ? 1 : -1) * (2 + Math.random() * 4)).toFixed(1) + "deg");
+  d.innerHTML = `<img src="${g.src}" alt="${g.cap}" loading="lazy"><span>${g.cap}</span>`;
+  d.onclick = () => { $("lbImg").src = g.src; $("lbCap").textContent = g.cap; $("lightbox").style.display = "flex"; };
+  $("polas").appendChild(d);
+});
+$("lightbox").onclick = () => $("lightbox").style.display = "none";
+
+/* ---------- Voice / video message (pauses the song while it plays) ---------- */
+(function(){
+  const m = CONFIG.message, holder = $("msgHolder");
+  if(m.type === "none"){ $("msgSec").style.display = "none"; return; }
+  $("msgTitle").textContent = m.title;
+  if(m.type === "audio"){
+    holder.classList.add("vid", "voice");
+    holder.innerHTML = `<div class="big">🎙️</div><p style="margin-top:8px">${m.caption}</p><audio controls src="${m.src}"></audio>`;
+  } else {
+    holder.classList.add("vid");
+    holder.innerHTML = `<video controls playsinline preload="metadata" poster="${m.poster}" src="${m.src}"></video>`;
+    $("msgCap").textContent = m.caption;
+  }
+  const media = holder.querySelector("video, audio");
+  media.addEventListener("play", () => {
+    songWasPlaying = !audio.paused;
+    audio.pause();
+    if(spotifyCtl){ try{ spotifyCtl.pause(); }catch(e){} }
+  });
+  media.addEventListener("pause", () => {
+    if(songWasPlaying){ audio.play().catch(() => {}); songWasPlaying = false; }
+  });
+})();
+
+/* ---------- Reasons ---------- */
+CONFIG.reasons.forEach(r => {
+  const c = document.createElement("div");
+  c.className = "card";
+  c.innerHTML = `<div class="in"><div class="f">❤</div><div class="b">${r}</div></div>`;
+  c.onclick = () => c.classList.toggle("flip");
+  $("cards").appendChild(c);
+});
+
+/* ---------- Open when letters ---------- */
+function openModal(tag, title, body){
+  $("mTag").textContent = tag; $("mTitle").textContent = title; $("mBody").textContent = body;
+  $("modal").style.display = "flex";
+}
+$("mClose").onclick = () => $("modal").style.display = "none";
+$("modal").addEventListener("click", e => { if(e.target.id === "modal") $("modal").style.display = "none"; });
+CONFIG.openWhen.forEach(o => {
+  const b = document.createElement("button");
+  b.className = "env";
+  b.innerHTML = `<i>${o.icon}</i><span>${o.label}</span>`;
+  b.onclick = () => openModal("A letter for you", o.label, fill(o.text));
+  $("envList").appendChild(b);
+});
+
+/* ---------- Coupons ---------- */
+const usedCoupons = store.get("coupons", {});
+CONFIG.coupons.forEach((c, i) => {
+  const d = document.createElement("div");
+  d.className = "coupon" + (usedCoupons[i] ? " used" : "");
+  d.innerHTML = `<i>${c.icon}</i><b>${c.title}</b><small>${c.note}</small>`;
+  d.onclick = () => {
+    if(d.classList.contains("used")) return;
+    d.classList.add("used"); usedCoupons[i] = 1; store.set("coupons", usedCoupons);
+    toast("Redeemed! Show me this and I'll make it happen ❤");
+    burst(8);
+  };
+  $("coupons").appendChild(d);
+});
+
+/* ---------- Promises + bucket list ---------- */
+CONFIG.promises.forEach(p => {
+  const d = document.createElement("div");
+  d.className = "li"; d.innerHTML = `<span>❤</span><span>${p}</span>`;
+  $("promises").appendChild(d);
+});
+const doneItems = store.get("bucket", {});
+CONFIG.bucket.forEach((t, i) => {
+  const d = document.createElement("div");
+  d.className = "li bk" + (doneItems[i] ? " done" : "");
+  d.innerHTML = `<div class="box">${doneItems[i] ? "✓" : ""}</div><span>${t}</span>`;
+  d.onclick = () => {
+    const on = d.classList.toggle("done");
+    doneItems[i] = on ? 1 : 0;
+    d.querySelector(".box").textContent = on ? "✓" : "";
+    store.set("bucket", doneItems);
+    if(on) toast("Added to our adventures ❤");
+  };
+  $("bucket").appendChild(d);
+});
+
+/* ---------- Quiz ---------- */
+let qi = 0, score = 0;
+function showQ(){
+  const box = $("quiz");
+  if(qi >= CONFIG.quiz.length){
+    const pct = score / CONFIG.quiz.length;
+    box.innerHTML = `<h3 style="font-size:26px;margin-bottom:10px">You scored ${score}/${CONFIG.quiz.length}</h3>
+      <p>${pct === 1 ? "Perfect! You know us so well 🥰" : "Cute try! Still my favourite person ❤"}</p>`;
+    return;
+  }
+  const q = CONFIG.quiz[qi];
+  box.innerHTML = `<p style="opacity:.6;font-size:13px">Question ${qi + 1} of ${CONFIG.quiz.length}</p>
+    <h3 style="margin:8px 0 12px;font-size:21px">${q.q}</h3>`;
+  q.o.forEach((o, i) => {
+    const b = document.createElement("button");
+    b.className = "opt"; b.textContent = o;
+    b.onclick = () => {
+      box.querySelectorAll(".opt").forEach(x => x.disabled = true);
+      if(i === q.a){ b.classList.add("ok"); score++; }
+      else { b.classList.add("no"); box.querySelectorAll(".opt")[q.a].classList.add("ok"); }
+      setTimeout(() => { qi++; showQ(); }, 1100);
+    };
+    box.appendChild(b);
+  });
+}
+showQ();
+
+/* ---------- Counter ---------- */
+function tick(){
+  const diff = Math.max(0, Date.now() - new Date(CONFIG.startDate).getTime());
+  $("cD").textContent = Math.floor(diff / 864e5);
+  $("cH").textContent = Math.floor(diff / 36e5) % 24;
+  $("cM").textContent = Math.floor(diff / 6e4) % 60;
+  $("cS").textContent = Math.floor(diff / 1e3) % 60;
+}
+tick(); setInterval(tick, 1000);
+
+/* ---------- Starry sky with her name ---------- */
+function initSky(){
+  const sec = $("skySec"), cv = $("skyCanvas"), ctx = cv.getContext("2d");
+  let W = 0, H = 0, bgStars = [], pts = [], shown = 0, visible = false, shoot = null;
+
+  function build(){
+    W = cv.width = sec.clientWidth; H = cv.height = sec.clientHeight;
+    bgStars = Array.from({length:150}, () => ({
+      x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.2 + .2,
+      p: Math.random()*6.28, s: .015 + Math.random()*.03
+    }));
+    const oh = 200, off = document.createElement("canvas");
+    off.width = W; off.height = oh;
+    const o = off.getContext("2d");
+    let fs = 110;
+    do{
+      o.font = `italic 700 ${fs}px 'Playfair Display',Georgia,serif`;
+      if(o.measureText(CONFIG.herNick).width <= W*.86) break;
+      fs -= 4;
+    } while(fs > 16);
+    o.fillStyle = "#fff"; o.textAlign = "center"; o.textBaseline = "middle";
+    o.fillText(CONFIG.herNick, W/2, oh/2);
+    const d = o.getImageData(0, 0, W, oh).data;
+    pts = [];
+    for(let y = 0; y < oh; y += 5){
+      for(let x = 0; x < W; x += 5){
+        if(d[(y*W + x)*4 + 3] > 128) pts.push({x:x, y:y + H/2 - oh/2, p:Math.random()*6.28});
+      }
+    }
+    pts.sort(() => Math.random() - .5);
+  }
+
+  function frame(){
+    if(visible){
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = "#fff";
+      bgStars.forEach(s => {
+        s.p += s.s;
+        ctx.globalAlpha = .4 + .6*Math.abs(Math.sin(s.p));
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.283); ctx.fill();
+      });
+      if(shown < pts.length) shown += 6;
+      ctx.fillStyle = "#ffd98a";
+      const n = Math.min(shown, pts.length);
+      for(let i = 0; i < n; i++){
+        const s = pts[i]; s.p += .05;
+        const a = .75 + .25*Math.sin(s.p);
+        ctx.globalAlpha = a*.18; ctx.beginPath(); ctx.arc(s.x, s.y, 4, 0, 6.283); ctx.fill();
+        ctx.globalAlpha = a;     ctx.beginPath(); ctx.arc(s.x, s.y, 1.7, 0, 6.283); ctx.fill();
+      }
+      if(!shoot && Math.random() < .006) shoot = {x:Math.random()*W*.7, y:Math.random()*H*.3, l:0};
+      if(shoot){
+        shoot.x += 9; shoot.y += 4; shoot.l++;
+        ctx.globalAlpha = Math.max(0, 1 - shoot.l/40);
+        ctx.strokeStyle = "#fff"; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(shoot.x, shoot.y); ctx.lineTo(shoot.x - 50, shoot.y - 22); ctx.stroke();
+        if(shoot.l > 40) shoot = null;
+      }
+      ctx.globalAlpha = 1;
+    }
+    requestAnimationFrame(frame);
+  }
+
+  build();
+  new IntersectionObserver(es => {
+    if(es[0].isIntersecting){ if(!visible) shown = 0; visible = true; } else visible = false;
+  }, {threshold:.15}).observe(sec);
+  window.addEventListener("resize", () => { if(sec.clientWidth !== W) build(); });
+  frame();
+}
+(document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(initSky);
+
+/* ---------- Scratch card ---------- */
+(function(){
+  const cv = $("scratchCv"), r = cv.parentElement.getBoundingClientRect();
+  cv.width = Math.round(r.width) || 340; cv.height = Math.round(r.height) || 190;
+  const ctx = cv.getContext("2d");
+  const g = ctx.createLinearGradient(0, 0, cv.width, cv.height);
+  g.addColorStop(0, "#d9b25f"); g.addColorStop(.5, "#f4dc9a"); g.addColorStop(1, "#c79a45");
+  ctx.fillStyle = g; ctx.fillRect(0, 0, cv.width, cv.height);
+  ctx.fillStyle = "rgba(60,40,10,.75)"; ctx.font = "600 20px sans-serif";
+  ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillText("✨ Scratch here ✨", cv.width/2, cv.height/2);
+  let drawing = false, finished = false;
+  function scratch(e){
+    const b = cv.getBoundingClientRect();
+    const x = (e.clientX - b.left) * cv.width / b.width, y = (e.clientY - b.top) * cv.height / b.height;
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.beginPath(); ctx.arc(x, y, 24, 0, 6.283); ctx.fill();
+  }
+  function check(){
+    const d = ctx.getImageData(0, 0, cv.width, cv.height).data;
+    let c = 0, n = 0;
+    for(let i = 3; i < d.length; i += 64){ n++; if(d[i] === 0) c++; }
+    if(c/n > .5 && !finished){
+      finished = true; cv.style.opacity = 0;
+      setTimeout(() => cv.style.display = "none", 800); burst(20);
+    }
+  }
+  cv.addEventListener("pointerdown", e => { drawing = true; cv.setPointerCapture(e.pointerId); scratch(e); });
+  cv.addEventListener("pointermove", e => { if(drawing) scratch(e); });
+  cv.addEventListener("pointerup", () => { drawing = false; check(); });
+  cv.addEventListener("pointercancel", () => { drawing = false; });
+})();
+
+/* ---------- Typewriter letter ---------- */
+let typed = false;
+new IntersectionObserver(es => {
+  if(es[0].isIntersecting && !typed){
+    typed = true; let i = 0;
+    const txt = fill(CONFIG.letter);
+    const t = setInterval(() => {
+      $("letterText").textContent = txt.slice(0, ++i);
+      if(i >= txt.length) clearInterval(t);
+    }, 45);
+  }
+}, {threshold:.5}).observe($("letterSec"));
+
+/* ---------- Intro: tap to open + start the song from the beginning ---------- */
+$("openBtn").onclick = () => {
+  // song is already playing from the password screen; this is only a safety net
+  if(audio.paused && !spotifyMode) startSong();
+  $("intro").style.opacity = 0;
+  setTimeout(() => { $("intro").style.display = "none"; document.body.classList.remove("locked"); }, 1200);
+  setInterval(heart, 900);
+};
+
+/* ---------- Runaway "No" + gift reveal ---------- */
+const no = $("noBtn"), yes = $("yesBtn");
+let scale = 1;
+function runAway(e){
+  e.preventDefault();
+  no.style.position = "fixed";
+  no.style.left = Math.random() * (innerWidth - no.offsetWidth - 20) + 10 + "px";
+  no.style.top  = Math.random() * (innerHeight - no.offsetHeight - 20) + 10 + "px";
+  scale = Math.min(scale + .12, 2);
+  yes.style.transform = `scale(${scale})`;
+}
+no.addEventListener("touchstart", runAway, {passive:false});
+no.addEventListener("mouseenter", runAway);
+no.addEventListener("click", runAway);
+
+yes.onclick = () => {
+  $("btns").style.display = "none";
+  $("finalMsg").textContent = CONFIG.yesMessage;
+  burst(40);
+  setTimeout(() => {
+    $("gift").style.display = "block";
+    $("gift").scrollIntoView({behavior:"smooth", block:"center"});
+  }, 1200);
+};
+$("giftBox").onclick = () => {
+  const b = $("giftBox");
+  if(b.classList.contains("open")) return;
+  b.classList.add("open");
+  setTimeout(() => {
+    b.textContent = "🎉";
+    $("giftHint").style.display = "none";
+    $("giftCard").classList.add("show");
+    burst(50);
+  }, 600);
+};
+
+/* ---------- Reveal on scroll (keep last) ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add("show"); }), {threshold:.1});
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+</script>
+</body>
+</html>
